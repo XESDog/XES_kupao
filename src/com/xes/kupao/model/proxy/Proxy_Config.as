@@ -44,6 +44,9 @@ package com.xes.kupao.model.proxy
 			super(NAME);
 		}
 		override public function onRegister():void{
+			
+		}
+		public function loadConfig():void{
 			_sqlQueue=new Vector.<RequestHandle>();
 			_sqlQueue.push(new RequestHandle(_aidyLevelInfo,"aidy_level_info",HeroLevelInfo));
 			_sqlQueue.push(new RequestHandle(_weierLevelInfo,"weier_level_info",HeroLevelInfo));
@@ -54,7 +57,7 @@ package com.xes.kupao.model.proxy
 			
 			connectDB();
 		}
-		public function connectDB():void{
+		private function connectDB():void{
 			
 			var db:File=File.applicationDirectory;
 			//assets前面如果有"/"，变成"/assets"就报错
