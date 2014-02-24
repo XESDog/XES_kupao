@@ -33,5 +33,11 @@ package com.xes.kupao.model.proxy
 		public function get gold():uint{
 			return _userVo.gold;
 		}
+		public function upgrade(heroId:uint):void{
+			//用户是否有这个hero
+			
+			//找到对应的hero数据，讲级别升上去
+			
+		}
 	}
 }

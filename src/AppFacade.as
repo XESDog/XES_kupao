@@ -1,6 +1,8 @@
 package
 {
+	import com.xes.kupao.command.CMD_BuyGoods;
 	import com.xes.kupao.command.CMD_ChangeState;
+	import com.xes.kupao.command.CMD_UpgradeHero;
 	import com.xes.kupao.command.CommandConst;
 	import com.xes.kupao.model.proxy.AppProxy;
 	import com.xes.kupao.model.proxy.AppState;
@@ -41,6 +43,8 @@ package
 		override protected function initializeController():void{
 			super.initializeController();
 			registerCommand(CommandConst.CHANGE_APP_STATE,CMD_ChangeState);
+			registerCommand(CommandConst.BUY_GOODS,CMD_BuyGoods);
+			registerCommand(CommandConst.UPGRADE_HERO,CMD_UpgradeHero);
 		}
 		override protected function initializeView():void{
 			super.initializeView();
