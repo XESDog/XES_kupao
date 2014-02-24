@@ -1,11 +1,12 @@
 package
 {
-	import com.xes.kupao.command.CMD_LoadConfig;
+	import com.xes.kupao.command.CMD_ChangeState;
 	import com.xes.kupao.command.CommandConst;
 	import com.xes.kupao.model.proxy.AppProxy;
 	import com.xes.kupao.model.proxy.AppState;
 	import com.xes.kupao.model.proxy.Proxy_Config;
 	import com.xes.kupao.model.proxy.Proxy_User;
+	import com.xes.kupao.view.mediator.MED_PhysicsWorld;
 	
 	import flash.display.DisplayObjectContainer;
 	
@@ -29,7 +30,7 @@ package
 		public function setup(viewContext:DisplayObjectContainer):void{
 			_viewContext=viewContext;
 			
-			sendNotification(CommandConst.CHANGE_APP_STATE,AppState.GAMEING_STATE);
+			sendNotification(CommandConst.CHANGE_APP_STATE,AppState.LOADING_STATE);
 		}
 		override protected function initializeModel():void{
 			super.initializeModel();
@@ -39,7 +40,11 @@ package
 		}
 		override protected function initializeController():void{
 			super.initializeController();
-			registerCommand(CommandConst.CHANGE_APP_STATE,CMD_LoadConfig);
+			registerCommand(CommandConst.CHANGE_APP_STATE,CMD_ChangeState);
+		}
+		override protected function initializeView():void{
+			super.initializeView();
+			registerMediator(new MED_PhysicsWorld);
 		}
 		
 	}

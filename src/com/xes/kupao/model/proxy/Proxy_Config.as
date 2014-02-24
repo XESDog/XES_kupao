@@ -82,6 +82,7 @@ package com.xes.kupao.model.proxy
 		
 		protected function onOpenDB(event:SQLEvent):void
 		{
+			trace("on connect success");
 			handleSqlQueue();
 		}
 		private function handleSqlQueue():void{
@@ -112,30 +113,31 @@ class RequestHandle extends EventDispatcher{
 	private var _sql:String;
 	private var _classDef:Class;
 	private var _resultHandle:Function;
-	public function RequestHandle(dic:Dictionary,sql:String,_classDef:Class,resultHandle:Function=null):void{
+	public function RequestHandle(dic:Dictionary,sql:String,classDef:Class,resultHandle:Function=null):void{
 		_dic=dic;
 		_sql=sql;
+		_classDef=classDef;
 		_resultHandle=resultHandle;
 		
 		if(_resultHandle==null){
 			_resultHandle=function(result:SQLResult):void{
 				var len:uint=result.data.length;
-				var propVo:Object;
+				var vo:Object;
 				var resultItem:Object;
 				trace("获取信息===================");
 				for (var i:int = 0; i < len; i++) 
 				{
-					propVo=new _classDef();
+					vo=new _classDef();
 					resultItem=result.data[i];
 					for(var item:String in resultItem){
-						if(propVo.hasOwnProperty(item)){
-							propVo[item]=resultItem[item];
+						if(vo.hasOwnProperty(item)){
+							vo[item]=resultItem[item];
 						}else{
 							trace("vo中没有"+item+"该属性。");
 						}
 					}
-					_dic[resultItem.id]=propVo;
-					trace(propVo);
+					_dic[resultItem.id]=vo;
+					trace(vo);
 				}
 				trace("========================");
 				dispatchEvent(new Event(Event.COMPLETE));

@@ -18,5 +18,20 @@ package com.xes.kupao.model.proxy
 		{
 			super(NAME);
 		}
+		public function addGold():void{
+			
+		}
+		public function reduceGold():void{
+			
+		}
+		public function addProp():void{
+			
+		}
+		public function reduceProp():void{
+			
+		}
+		public function get gold():uint{
+			return _userVo.gold;
+		}
 	}
 }

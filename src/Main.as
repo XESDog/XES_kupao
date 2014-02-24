@@ -6,6 +6,7 @@ package
 	
 	public class Main extends Sprite
 	{
+		public static var instance:Main;
 		public function Main()
 		{
 			super();
@@ -15,6 +16,8 @@ package
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			
 			AppFacade.instance.setup(this);
+			
+			instance=this;
 		}
 	}
 }

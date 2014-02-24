@@ -5,7 +5,7 @@ package com.xes.kupao.command
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.command.SimpleCommand;
 	
-	public class CMD_LoadConfig extends SimpleCommand
+	public class CMD_ChangeState extends SimpleCommand
 	{
 		override public function execute(notification:INotification):void{
 			var proxyConfig:Proxy_Config=facade.retrieveProxy(Proxy_Config.NAME) as Proxy_Config;

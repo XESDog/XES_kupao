@@ -12,6 +12,10 @@ package com.xes.kupao.model.vo
 		 * 拥有的角色 
 		 */
 		public var heros:Vector.<OwnHeroInfo>;
+		/**
+		 * 当前英雄 
+		 */
+		public var currHero:uint=100101;
 	}
 }
 class OwnPropInfo{
