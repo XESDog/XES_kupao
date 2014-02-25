@@ -1,5 +1,7 @@
 package com.xes.kupao.model.proxy
 {
+	import com.xes.kupao.ErrorConst;
+	import com.xes.kupao.command.CommandConst;
 	import com.xes.kupao.model.vo.PropInfo;
 	
 	import flash.data.SQLConnection;
@@ -33,6 +35,8 @@ package com.xes.kupao.model.proxy
 		private var _heroInfo:Dictionary=new Dictionary;
 		private var _goldInfo:Dictionary=new Dictionary;
 		private var _specialSkillInfo:Dictionary=new Dictionary;
+		private var _commandInfo:Dictionary=new Dictionary;
+		private var _errorInfo:Dictionary=new Dictionary();
 		
 		/**
 		 * 请求队列 
@@ -54,6 +58,8 @@ package com.xes.kupao.model.proxy
 			_sqlQueue.push(new RequestHandle(_heroInfo,"hero_info",HeroInfo));
 			_sqlQueue.push(new RequestHandle(_goldInfo,"gold_info",GoldInfo));
 			_sqlQueue.push(new RequestHandle(_specialSkillInfo,"special_skill_info",SpecialSkillInfo));
+			_sqlQueue.push(new RequestHandle(_commandInfo,"command_info",CommandInfo));
+			//_sqlQueue.push(new RequestHandle(_errorInfo,"error_info",ErrorInfo));
 			
 			connectDB();
 		}
@@ -86,7 +92,10 @@ package com.xes.kupao.model.proxy
 			handleSqlQueue();
 		}
 		private function handleSqlQueue():void{
-			if(_sqlQueue.length<=0)return;
+			if(_sqlQueue.length<=0){
+				sendNotification(CommandConst.INIT);
+				return;
+			}
 			var request:RequestHandle=_sqlQueue.shift();
 			var sql:String="SELECT * FROM "+request.sql;
 			_st.text=sql;
@@ -96,6 +105,32 @@ package com.xes.kupao.model.proxy
 				handleSqlQueue();
 			},false,0,true);
 		}
+		//command info =============
+		public function getCommandId(en:String):uint{
+			for each (var item:CommandInfo in _commandInfo){
+				if(item.en==en){
+					return item.id;
+				}
+			}
+			sendNotification(CommandConst.ERROR,ErrorConst.NO_THIS_COMMAND);
+			return 0;//0表示没有
+		}
+		public function getCommandEn(id:uint):String{
+			if(_commandInfo[id]){
+				return _commandInfo[id].en;
+			}
+			sendNotification(CommandConst.ERROR,ErrorConst.NO_THIS_COMMAND);
+			return "";
+		}
+		
+		//error==========================
+		public function getErrorDescribe(id:uint):String{
+			if(_errorInfo[id]){
+				return _errorInfo[id].describe;
+			}
+			return "";
+		}
+		
 	}
 }
 import flash.data.SQLResult;
@@ -193,4 +228,18 @@ class HeroInfo{
 	public function toString():String{
 		return "id："+id+" name:"+name+"describe:"+describe+" magnet:"+magnet+" giant:"+giant+" sprint:"+sprint+" upgradeGold:";
 	}
+}
+class CommandInfo{
+	public var id:uint;
+	public var describe:String="";
+	public var en:String="";
+	public var param:String="";
+	public function toString():String{
+		return "id:"+id+" describe:"+describe+" en:"+en;
+	}
+}
+class ErrorInfo{
+	public var id:uint;
+	public var describe:String="";
+	public var en:String="";
 }

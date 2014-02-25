@@ -14,10 +14,11 @@ package
 			// 支持 autoOrient
 			stage.align = StageAlign.TOP_LEFT;
 			stage.scaleMode = StageScaleMode.NO_SCALE;
+			instance=this;
 			
 			AppFacade.instance.setup(this);
 			
-			instance=this;
+			
 		}
 	}
 }

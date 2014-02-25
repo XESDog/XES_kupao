@@ -4,17 +4,14 @@ package com.xes.kupao.command
 	
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.command.SimpleCommand;
-	
-	public class CMD_UpgradeHero extends SimpleCommand
+
+	public class CMD_BuyHero extends SimpleCommand
 	{
-		/*public function CMD_UpgradeHero()
+		override public function execute(notification:INotification):void
 		{
-			super();
-		}*/
-		override public function execute(notification:INotification):void{
-			var heroID:int=int(notification.getBody());
 			var proxyUser:Proxy_User=facade.retrieveProxy(Proxy_User.NAME) as Proxy_User;
-			proxyUser.upgrade(heroID);
+			var id:uint = notification.getBody() as uint;
+			proxyUser.buyHero(id);
 		}
 	}
 }

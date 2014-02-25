@@ -5,9 +5,9 @@ package com.xes.kupao.command
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.command.SimpleCommand;
 	
-	public class CMD_ObtainProp extends SimpleCommand
+	public class CMD_BuyProp extends SimpleCommand
 	{
-	/*	public function CMD_ObtainProp()
+		/*public function CMD_BuyGoods()
 		{
 			super();
 		}*/
@@ -16,6 +16,9 @@ package com.xes.kupao.command
 			var body:Object=notification.getBody();
 			var id:uint=body.id;
 			var count:uint=body.count;
+			
+			//TODO:缺少货币验证
+			
 			proxyUser.addProp(id,count);
 		}
 	}

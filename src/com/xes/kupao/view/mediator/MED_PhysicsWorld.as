@@ -18,7 +18,9 @@ package com.xes.kupao.view.mediator
 		{
 			super(NAME);
 		}
-		
+		override public function onRegister():void{
+			initStarlingCirtusEngine();
+		}
 		public function initStarlingCirtusEngine():void{
 			_starlingCitrusEngine=new MyStarlngCitrusEngine();
 			Main.instance.addChild(_starlingCitrusEngine);
